@@ -21,15 +21,15 @@ io.on('connection', (socket) => {
     console.log('User disconnected');
   });
 
-  socket.emit('newMessage', {
-    from: 'randomEmail@gmail.com',
-    text: 'wassup',
-    createdAt: 123,
+  socket.on('createMessage', (message) => {
+    // io.emit sends data to all connections
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime(),
+    });
   });
-  socket.on('createMessage', (newMessage) => {
-    console.log('new Message has been created', newMessage);
-  });
-  console.log('New user connected');
+  console.log('new user has connected');
 });
 
 
