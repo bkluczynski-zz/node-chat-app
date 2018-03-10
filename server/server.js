@@ -21,6 +21,17 @@ io.on('connection', (socket) => {
     console.log('User disconnected');
   });
 
+  socket.emit('newMessage', {
+    from: 'admin',
+    text: 'Welcome to the chat!',
+    createdAt: new Date().getTime(),
+  });
+  socket.broadcast.emit('newMessage', {
+    from: 'admin',
+    text: 'New user joined',
+    createdAt: new Date().getTime(),
+  });
+
   socket.on('createMessage', (message) => {
     // io.emit sends data to all connections
     io.emit('newMessage', {
