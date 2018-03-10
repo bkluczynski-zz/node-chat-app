@@ -26,9 +26,10 @@ io.on('connection', (socket) => {
   socket.emit('newMessage', generateMessage('admin', 'welcome to the chat'));
   socket.broadcast.emit('newMessage', generateMessage('admin', 'new user joined'));
 
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     // io.emit sends data to all connections
     io.emit('newMessage', generateMessage(message.from, message.text));
+    callback('This is from the server!');
   });
   console.log('new user has connected');
 });
